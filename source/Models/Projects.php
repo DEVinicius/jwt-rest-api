@@ -6,6 +6,8 @@ use DateTime;
 
 class Projects
 {
+    private $table_name = "projects";
+    
     private $id;
     private $user_id;
     private $name;
