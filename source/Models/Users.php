@@ -76,14 +76,35 @@ class Users
         $this->updated_at = $updated_at;
     }
 
-    public function selectByPasswd()
+    public function select()
     {
         $database = new Database();
 
         try 
         {
-            $result = $database->select("SELECT * FROM {$this->table_name} WHERE paswd = :passwd",[
-                ":passwd" => $this->getPasswd()
+            $result = $database->select("SELECT * FROM {$this->table_name}",[]);
+
+            return $result;
+        } 
+        catch (PDOException $e) 
+        {
+            print_r(
+                json_encode(
+                    [
+                        "error" => $e->getMessage()
+                    ]
+                )
+            );
+        }
+    }
+    public function selectByEmail()
+    {
+        $database = new Database();
+
+        try 
+        {
+            $result = $database->select("SELECT * FROM {$this->table_name} WHERE email = :email",[
+                ":email" => $this->getEmail()
             ]);
 
             return $result;

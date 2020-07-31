@@ -16,23 +16,36 @@ class UsersController
 
         try 
         {
-            $users->setName($data->name);
-            $users->setEmail($data->email);
-            $users->setPasswd($data->password);
-            
-            if(count($users->selectByPasswd()) == 0)
+            if(!empty($data->name) && !empty($data->email) && !empty($data->password))
             {
-                $users->create();
+                $users->setName($data->name);
+                $users->setEmail($data->email);
+                $users->setPasswd($data->password);
+                
+                if(count($users->selectByEmail()) == 0)
+                {
+                    $users->create();
+                }
+                else
+                {
+                    print_r(
+                        json_encode(
+                            [
+                                "error" => "Email já existente"
+                            ]
+                        )
+                    );
+                }
             }
             else
             {
                 print_r(
                     json_encode(
                         [
-                            "error" => "Email já existente"
+                            "error" => "Há campos vazios"
                         ]
                     )
-                );
+                ); 
             }
         } 
         catch (Exception $e) 
@@ -50,6 +63,10 @@ class UsersController
     public function read()
     {
         $users = new Users();
+
+        $result = $users->select();
+
+        print_r(json_encode($result));
     }
 
     public function update()
