@@ -1,8 +1,9 @@
 <?php 
-define("ROOT", "http://localhost/jwt-rest-api");
+
+define("ROOT","http://localhost/jwt-rest-api");
 define("DATABASE", [
     "host" => "localhost",
-    "dbName" => "shop",
+    "dbName" => "jwt",
     "password" => "Ralph@2411",
     "user" => "vini"
 ]);
