@@ -76,11 +76,35 @@ class Users
         $this->updated_at = $updated_at;
     }
 
+    public function selectByPasswd()
+    {
+        $database = new Database();
+
+        try 
+        {
+            $result = $database->select("SELECT * FROM {$this->table_name} WHERE paswd = :passwd",[
+                ":passwd" => $this->getPasswd()
+            ]);
+
+            return $result;
+        } 
+        catch (PDOException $e) 
+        {
+            print_r(
+                json_encode(
+                    [
+                        "error" => $e->getMessage()
+                    ]
+                )
+            );
+        }
+    }
+
     public function create()
     {
         $database = new Database();
         try {
-            $database->query_database("INSERT INTO {$this->table_name} (name, email, passwd) VALUES(:name, :email, :passwd)", [
+            $database->query_database("INSERT INTO {$this->table_name} (name, email, paswd) VALUES(:name, :email, :passwd)", [
                 ":name" => $this->getName(),
                 ":email" => $this->getEmail(),
                 ":passwd" => $this->getPasswd()
@@ -89,7 +113,7 @@ class Users
             return print_r(
                 json_encode(
                     [
-                        "status" => 200
+                        "status" => "200"
                     ]
                 )
             );

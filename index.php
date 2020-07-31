@@ -6,7 +6,7 @@ use CoffeeCode\Router\Router;
 use Firebase\JWT\JWT;
 
 $router = new Router(ROOT);
-$router->namespace("Source/Controllers");
+$router->namespace("Source\Controllers");
 
 $router->group("/users");
 $router->get("/read","UsersController:read");
