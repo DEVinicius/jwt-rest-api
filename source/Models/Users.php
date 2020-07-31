@@ -85,6 +85,14 @@ class Users
                 ":email" => $this->getEmail(),
                 ":passwd" => $this->getPasswd()
             ]);
+
+            return print_r(
+                json_encode(
+                    [
+                        "status" => 200
+                    ]
+                )
+            );
         } 
         catch (PDOException $e) 
         {

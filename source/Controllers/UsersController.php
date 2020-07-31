@@ -9,34 +9,36 @@ class UsersController
 {
     public function create()
     {
-        $users = new Users();
+        print_r(json_encode(["eee"=>"eeee"]));
+        // $users = new Users();
 
-        $users = new Users();
-        $data = json_decode(file_get_contents("php://input"));
+        // $users = new Users();
+        // $data = json_decode(file_get_contents("php://input"));
 
-        try 
-        {
-            $users->setName($data->name);
-            $users->setEmail($data->email);
-            $users->setPasswd($data->passwd);
+        // try 
+        // {
+        //     $users->setName($data->name);
+        //     $users->setEmail($data->emaidl);
+        //     $users->setPasswd($data->passwd);
     
-            $users->create();
-        } 
-        catch (Exception $e) 
-        {
-            print_r(
-                json_encode(
-                    [
-                        "error" => $e->getMessage()
-                    ]
-                )
-            );
-        }
+        //     $user = $users->create();
+        //     print_r($user);
+        // } 
+        // catch (Exception $e) 
+        // {
+        //     print_r(
+        //         json_encode(
+        //             [
+        //                 "error" => $e->getMessage()
+        //             ]
+        //         )
+        //     );
+        // }
     }
 
     public function read()
     {
-        
+        $users = new Users();
     }
 
     public function update()
