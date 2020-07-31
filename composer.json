@@ -1,0 +1,25 @@
+{
+    "name": "vinicius/jwt-rest-api",
+    "description": "JWT API CREATION",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vinicius Pereira de Oliveira",
+            "email": "agavi2014@hotmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Source\\": "source"
+        },
+        "files": [
+            "source/Config.php"
+        ]
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "coffeecode/router": "dev-master",
+        "firebase/php-jwt": "dev-master"
+    }
+}
