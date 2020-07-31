@@ -3,9 +3,11 @@
 namespace Source\Models;
 
 use DateTime;
+use PDOException;
 
 class Users
 {
+    private $table_name = "users";
     //attributes
     private $id;
     private $name;
@@ -72,5 +74,25 @@ class Users
     public function setUpdatedAt(DateTime $updated_at):void
     {
         $this->updated_at = $updated_at;
+    }
+
+    public function create()
+    {
+        $database = new Database();
+        try {
+            $database->query_database("INSERT INTO {$this->table_name} (name, email, passwd) VALUES(:name, :email, :passwd)", [
+                ":name" => $this->getName(),
+                ":email" => $this->getEmail(),
+                ":passwd" => $this->getPasswd()
+            ]);
+        } catch (PDOException $e) {
+            print_r(
+                json_encode(
+                    [
+                        "error" => $e->getMessage()
+                    ]
+                )
+            );
+        }
     }
 }
