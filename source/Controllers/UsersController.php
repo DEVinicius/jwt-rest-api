@@ -22,10 +22,12 @@ class UsersController
                 
                 if(count($users->selectByEmail()) == 0)
                 {
+                    http_response_code(200);
                     $users->create();
                 }
                 else
                 {
+                    http_response_code(400);
                     print_r(
                         json_encode(
                             [
@@ -37,6 +39,7 @@ class UsersController
             }
             else
             {
+                http_response_code(400);
                 print_r(
                     json_encode(
                         [
@@ -48,6 +51,7 @@ class UsersController
         } 
         catch (Exception $e) 
         {
+            http_response_code(404);
             print_r(
                 json_encode(
                     [
