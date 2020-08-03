@@ -78,7 +78,14 @@ class UsersController
 
                     if(password_verify($data->password,$passwd))
                     {
-
+                        http_response_code(200);
+                        print_r(
+                            json_encode(
+                                [
+                                    "error" => "Login Efetuado"
+                                ]
+                            )
+                        );
                     }
                     else
                     {
