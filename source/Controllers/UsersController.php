@@ -10,8 +10,6 @@ class UsersController
     public function create()
     {
         $users = new Users();
-
-        $users = new Users();
         $data = json_decode(file_get_contents("php://input"));
 
         try 
@@ -46,6 +44,43 @@ class UsersController
                         ]
                     )
                 ); 
+            }
+        } 
+        catch (Exception $e) 
+        {
+            print_r(
+                json_encode(
+                    [
+                        "error" => $e->getMessage()
+                    ]
+                )
+            );
+        }
+    }
+
+    public function checkLogin()
+    {
+        $users = new Users();
+        $data = json_decode(file_get_contents("php://input"));
+
+        try 
+        {
+            if(!empty($data->email) && !empty($data->password))
+            {
+                $users->setEmail($data->email);
+                $users->setPasswd($data->password);
+
+                $result = $users->selectByEmailAndPassword();
+            }
+            else
+            {
+                print_r(
+                    json_encode(
+                        [
+                            "error" => "Campos Vazios"
+                        ]
+                    )
+                );
             }
         } 
         catch (Exception $e) 
