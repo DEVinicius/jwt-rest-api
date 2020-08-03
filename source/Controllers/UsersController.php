@@ -131,7 +131,7 @@ class UsersController
                         $iss = "localhost";
                         $iat = time();
                         $nbf = $iat + 10;
-                        $exp = $iat + 30;
+                        $exp = $iat + 2700;
                         $aud = "my_users";
 
                         $data_array = array(
@@ -241,15 +241,5 @@ class UsersController
                 ]
             )
         );
-    }
-
-    public function update()
-    {
-        $users = new Users();
-    }
-
-    public function delete()
-    {
-        $users = new Users();
     }
 }

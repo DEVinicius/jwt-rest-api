@@ -5,7 +5,7 @@ namespace Source\Models;
 use DateTime;
 use PDOException;
 
-class Projects implements IRequest
+class Projects
 {
     private $table_name = "projects";
     
