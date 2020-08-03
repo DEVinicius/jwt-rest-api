@@ -16,7 +16,7 @@ $router->post("/create","UsersController:create");
 
 
 $router->group("/projects");
-$router->get("/read","ProjectsController:read");
+$router->post("/read","ProjectsController:read");
 $router->post("/create","ProjectsController:create");
 
 // Error Route

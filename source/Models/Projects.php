@@ -87,6 +87,29 @@ class Projects
         $this->updated_at = $updated_at;
     }
 
+    public function select()
+    {
+        $database = new Database();
+        try 
+        {
+            $result = $database->select("SELECT * FROM {$this->table_name} WHERE user_id = :user_id",[
+                ":user_id" => $this->getUserId()
+            ]);
+
+            return $result;
+        } 
+        catch (PDOException $e) 
+        {
+            print_r(
+                json_encode(
+                    [
+                        "error" => $e->getMessage()
+                    ]
+                )
+            );
+        }
+    }
+
     public function create()
     {
         $database = new Database();

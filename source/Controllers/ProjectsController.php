@@ -42,7 +42,6 @@ class ProjectsController
                     )
                 );
             }
-            //user_id verify
         }
         else
         {
@@ -66,10 +65,19 @@ class ProjectsController
         {
             if(!empty($data->jwt))
             {
+                $jwt = JWT::decode($data->jwt,$this->key, array($this->alg));
+                $projects->setUserId($jwt->data->id);
+
+                $data = $projects->select();
+                http_response_code(200);
+                print_r(
+                    json_encode($data)
+                );
 
             }
             else
             {
+                http_response_code(400);
                 print_r(
                     json_encode(
                         [
@@ -81,6 +89,7 @@ class ProjectsController
         } 
         catch (Exception $e) 
         {
+            http_response_code(400);
             print_r(
                 json_encode(
                     [
