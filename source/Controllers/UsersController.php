@@ -78,9 +78,9 @@ class UsersController
                 {
                     $name = $result[0]["name"];
                     $email = $result[0]["email"];
-                    $passwd = $result[0]["passwd"];
+                    $passwd = $result[0]["paswd"];
 
-                    if(password_verify($data->password,$passwd))
+                    if($data->password == $passwd)
                     {
                         http_response_code(200);
                         print_r(
@@ -129,6 +129,7 @@ class UsersController
         } 
         catch (Exception $e) 
         {
+            http_response_code(404);
             print_r(
                 json_encode(
                     [

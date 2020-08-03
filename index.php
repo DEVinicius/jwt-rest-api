@@ -9,7 +9,7 @@ $router = new Router(ROOT);
 $router->namespace("Source\Controllers");
 
 $router->group("/users");
-$router->post("/login", "UserController:checkLogin");
+$router->post("/login", "UsersController:checkLogin");
 $router->get("/read","UsersController:read");
 $router->post("/create","UsersController:create");
 $router->put("/update","UsersController:update");
