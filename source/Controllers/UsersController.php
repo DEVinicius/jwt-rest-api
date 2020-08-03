@@ -4,6 +4,7 @@ namespace Source\Controllers;
 
 use Exception;
 use Source\Models\Users;
+use Firebase\JWT\JWT;
 
 class UsersController
 {
