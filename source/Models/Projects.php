@@ -5,7 +5,7 @@ namespace Source\Models;
 use DateTime;
 use PDOException;
 
-class Projects
+class Projects implements IRequest
 {
     private $table_name = "projects";
     
@@ -127,6 +127,6 @@ class Projects
 
     public function read()
     {
-        
+
     }
 }

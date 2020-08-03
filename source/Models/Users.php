@@ -5,7 +5,7 @@ namespace Source\Models;
 use DateTime;
 use PDOException;
 
-class Users
+class Users implements IRequest
 {
     private $table_name = "users";
     //attributes
