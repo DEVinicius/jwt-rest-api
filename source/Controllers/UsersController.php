@@ -8,6 +8,34 @@ use Firebase\JWT\JWT;
 
 class UsersController
 {
+    public function getData()
+    {
+        $data = json_decode(file_get_contents("php://input"));
+
+        if(!empty($data->jwt))
+        {
+            http_response_code(200);
+            print_r(
+                json_encode(
+                    [
+                        "jwt" => $data->jwt
+                    ]
+                )
+            );
+        }
+        else
+        {
+            http_response_code(400);
+            print_r(
+                json_encode(
+                    [
+                        "error" => "Invalid Field"
+                    ]
+                )
+            );
+        }
+    }
+
     public function create()
     {
         $users = new Users();

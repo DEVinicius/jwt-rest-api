@@ -10,6 +10,7 @@ $router->namespace("Source\Controllers");
 
 $router->group("/users");
 $router->post("/login", "UsersController:checkLogin");
+$router->post("/getData","UsersController:getData");
 $router->get("/read","UsersController:read");
 $router->post("/create","UsersController:create");
 $router->put("/update","UsersController:update");
