@@ -83,11 +83,36 @@ class UsersController
 
                     if($data->password == $passwd)
                     {
+                        $iss = "localhost";
+                        $iat = time();
+                        $nbf = $iat + 10;
+                        $exp = $iat + 30;
+                        $aud = "my_users";
+
+                        $data_array = array(
+                            "id" => $result[0]["id"],
+                            "name" => $name,
+                            "email" => $email
+                        );
+
+                        $payload = [
+                            "iss"=> $iss,
+                            "iat"=> $iat,
+                            "nbf"=> $nbf,
+                            "exp"=> $exp, 
+                            "aud"=> $aud,
+                            "data"=> $data_array
+                        ];
+
+                        $key = "userJWT";
+
+                        $jwt = JWT::encode($payload,$key);
                         http_response_code(200);
                         print_r(
                             json_encode(
                                 [
-                                    "error" => "Login Efetuado"
+                                    "status" => "Login Efetuado",
+                                    "jwt" => $jwt
                                 ]
                             )
                         );
