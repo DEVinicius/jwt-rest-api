@@ -97,31 +97,7 @@ class Users
             );
         }
     }
-
-    public function selectByEmailAndPassword()
-    {
-        $database = new Database();
-
-        try 
-        {
-            $result = $database->select("SELECT * FROM {$this->table_name} WHERE email = :email AND passwd = :passwd",[
-                ":email" => $this->getEmail(),
-                ":passwd" => $this->getPasswd()
-            ]);
-
-            return $result;
-        } 
-        catch (PDOException $e) 
-        {
-            print_r(
-                json_encode(
-                    [
-                        "error" => $e->getMessage()
-                    ]
-                )
-            );
-        }
-    }
+    
     public function selectByEmail()
     {
         $database = new Database();

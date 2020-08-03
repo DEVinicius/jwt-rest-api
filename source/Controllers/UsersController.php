@@ -68,12 +68,45 @@ class UsersController
             if(!empty($data->email) && !empty($data->password))
             {
                 $users->setEmail($data->email);
-                $users->setPasswd($data->password);
 
-                $result = $users->selectByEmailAndPassword();
+                $result = $users->selectByEmail();
+                if(!empty($result))
+                {
+                    $name = $result[0]["name"];
+                    $email = $result[0]["email"];
+                    $passwd = $result[0]["passwd"];
+
+                    if(password_verify($data->password,$passwd))
+                    {
+
+                    }
+                    else
+                    {
+                        http_response_code(404);
+                        print_r(
+                            json_encode(
+                                [
+                                    "error" => "Senha Inválida"
+                                ]
+                            )
+                        );
+                    }
+                }
+                else
+                {
+                    http_response_code(404);
+                    print_r(
+                        json_encode(
+                            [
+                                "error" => "Resultado não existente"
+                            ]
+                        )
+                    );
+                }
             }
             else
             {
+                http_response_code(400);
                 print_r(
                     json_encode(
                         [
