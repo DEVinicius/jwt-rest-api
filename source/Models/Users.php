@@ -97,7 +97,7 @@ class Users
             );
         }
     }
-    
+
     public function selectByEmail()
     {
         $database = new Database();
@@ -106,6 +106,30 @@ class Users
         {
             $result = $database->select("SELECT * FROM {$this->table_name} WHERE email = :email",[
                 ":email" => $this->getEmail()
+            ]);
+
+            return $result;
+        } 
+        catch (PDOException $e) 
+        {
+            print_r(
+                json_encode(
+                    [
+                        "error" => $e->getMessage()
+                    ]
+                )
+            );
+        }
+    }
+
+    public function selectById()
+    {
+        $database = new Database();
+
+        try 
+        {
+            $result = $database->select("SELECT * FROM {$this->table_name} WHERE email = :email",[
+                ":id" => $this->getId()
             ]);
 
             return $result;
