@@ -90,9 +90,30 @@ class Projects
     public function create()
     {
         $database = new Database();
-        try {
-            
-        } catch (PDOException $e) {
+        try 
+        {
+            $database->query_database("INSERT INTO {$this->table_name} (user_id, name, description, status) VALUES(
+                :user_id,
+                :name,
+                :description,
+                :status
+            )", [
+                ":user_id" => $this->getUserId(),
+                ":name" => $this->getName(),
+                ":description" => $this->getDescription(),
+                ":status" => $this->getStatus()
+            ]);
+
+            return print_r(
+                json_encode(
+                    [
+                        "status" => "200"
+                    ]
+                )
+            );
+        } 
+        catch (PDOException $e) 
+        {
             http_response_code(400);
             print_r(
                 json_encode(
