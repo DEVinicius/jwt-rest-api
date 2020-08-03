@@ -32,13 +32,6 @@ class ProjectsController
     
                     $projects->create();
                     http_response_code(200);
-                    print_r(
-                        json_encode(
-                            [
-                                "error" => "200"
-                            ]
-                        )
-                    );
                 }
                 else
                 {
@@ -79,6 +72,6 @@ class ProjectsController
 
     public function read()
     {
-
+        
     }
 }
