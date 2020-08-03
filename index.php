@@ -13,15 +13,11 @@ $router->post("/login", "UsersController:checkLogin");
 $router->post("/getData","UsersController:getData");
 $router->get("/read","UsersController:read");
 $router->post("/create","UsersController:create");
-$router->put("/update","UsersController:update");
-$router->delete("/delete", "UsersController:delete");
 
 
 $router->group("/projects");
 $router->get("/read","ProjectsController:read");
 $router->post("/create","ProjectsController:create");
-$router->put("/update","ProjectsController:update");
-$router->delete("/delete", "ProjectsController:delete");
 
 // Error Route
 $router->group("ooops");
