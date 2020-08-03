@@ -42,6 +42,7 @@ class UsersController
         } 
         catch (Exception $e) 
         {
+            http_response_code(500);
             print_r(
                 json_encode(
                     [

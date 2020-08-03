@@ -3,6 +3,7 @@
 namespace Source\Models;
 
 use DateTime;
+use PDOException;
 
 class Projects
 {
@@ -84,5 +85,22 @@ class Projects
     public function setUpdatedAt(DateTime $updated_at):void
     {
         $this->updated_at = $updated_at;
+    }
+
+    public function create()
+    {
+        $database = new Database();
+        try {
+            
+        } catch (PDOException $e) {
+            http_response_code(400);
+            print_r(
+                json_encode(
+                    [
+                        "error" => $e->getMessage()
+                    ]
+                )
+            );
+        }
     }
 }
