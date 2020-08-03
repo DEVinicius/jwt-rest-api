@@ -8,28 +8,44 @@ use Firebase\JWT\JWT;
 
 class UsersController
 {
+    private $key = "userJWT";
+    private $alg = "HS256";
+
     public function getData()
     {
         $data = json_decode(file_get_contents("php://input"));
-
-        if(!empty($data->jwt))
+        try 
         {
-            http_response_code(200);
+            if(!empty($data->jwt))
+            {
+                http_response_code(200);
+                $jwt = JWT::decode($data->jwt,$this->key, array($this->alg));
+                print_r(
+                    json_encode(
+                        [
+                            "jwt" => $jwt
+                        ]
+                    )
+                );
+            }
+            else
+            {
+                http_response_code(400);
+                print_r(
+                    json_encode(
+                        [
+                            "error" => "Invalid Field"
+                        ]
+                    )
+                );
+            }
+        } 
+        catch (Exception $e) 
+        {
             print_r(
                 json_encode(
                     [
-                        "jwt" => $data->jwt
-                    ]
-                )
-            );
-        }
-        else
-        {
-            http_response_code(400);
-            print_r(
-                json_encode(
-                    [
-                        "error" => "Invalid Field"
+                        "error" => $e->getMessage()
                     ]
                 )
             );
@@ -130,11 +146,9 @@ class UsersController
                             "exp"=> $exp, 
                             "aud"=> $aud,
                             "data"=> $data_array
-                        ];
+                        ];                      
 
-                        $key = "userJWT";
-
-                        $jwt = JWT::encode($payload,$key);
+                        $jwt = JWT::encode($payload,$this->key);
                         http_response_code(200);
                         print_r(
                             json_encode(
@@ -217,9 +231,7 @@ class UsersController
             "data"=> $data_array
         ];
 
-        $key = "readJWT";
-
-        $jwt = JWT::encode($payload,$key);
+        $jwt = JWT::encode($payload,$this->key);
         http_response_code(200);
         print_r(
             json_encode(
