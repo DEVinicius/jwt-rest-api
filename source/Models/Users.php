@@ -128,7 +128,7 @@ class Users
 
         try 
         {
-            $result = $database->select("SELECT * FROM {$this->table_name} WHERE email = :email",[
+            $result = $database->select("SELECT * FROM {$this->table_name} WHERE id = :id",[
                 ":id" => $this->getId()
             ]);
 

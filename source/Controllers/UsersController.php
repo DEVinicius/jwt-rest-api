@@ -208,38 +208,4 @@ class UsersController
             );
         }
     }
-
-    public function read()
-    {
-        $users = new Users();
-
-        $result = $users->select();
-
-        $iss = "localhost";
-        $iat = time();
-        $nbf = $iat + 10;
-        $exp = $iat + 30;
-        $aud = "my_users";
-
-        $data_array = $result;
-
-        $payload = [
-            "iss"=> $iss,
-            "iat"=> $iat,
-            "nbf"=> $nbf,
-            "exp"=> $exp, 
-            "aud"=> $aud,
-            "data"=> $data_array
-        ];
-
-        $jwt = JWT::encode($payload,$this->key);
-        http_response_code(200);
-        print_r(
-            json_encode(
-                [
-                    "jwt" => $jwt
-                ]
-            )
-        );
-    }
 }
