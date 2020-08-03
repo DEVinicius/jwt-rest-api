@@ -6,6 +6,7 @@ use Exception;
 use Source\Models\Projects;
 use Source\Models\Users;
 use Firebase\JWT\JWT;
+use PDOException;
 
 class ProjectsController
 {
@@ -22,28 +23,14 @@ class ProjectsController
             try 
             {
                 $jwt = JWT::decode($data->jwt,$this->key, array($this->alg));
-                $users->setId($jwt->data->id);
-                if(count($users->selectById()) > 0)
-                {
-                    $projects->setName($data->name);
-                    $projects->setUserId($jwt->data->id);
-                    $projects->setDescription($data->description);
-                    $projects->setStatus($data->status);
-    
-                    $projects->create();
-                    http_response_code(200);
-                }
-                else
-                {
-                    http_response_code(400);
-                    print_r(
-                        json_encode(
-                            [
-                                "error" => "Incorrect User_id"
-                            ]
-                        )
-                    );
-                }
+                
+                $projects->setName($data->name);
+                $projects->setUserId($jwt->data->id);
+                $projects->setDescription($data->description);
+                $projects->setStatus($data->status);
+
+                $projects->create();
+                http_response_code(200);
             } 
             catch (Exception $e) 
             {
@@ -72,6 +59,35 @@ class ProjectsController
 
     public function read()
     {
-        
+        $data = json_decode(file_get_contents("php://input"));
+        $projects = new Projects();
+
+        try 
+        {
+            if(!empty($data->jwt))
+            {
+
+            }
+            else
+            {
+                print_r(
+                    json_encode(
+                        [
+                            "error" => "Invalid Field"
+                        ]
+                    )
+                );
+            }
+        } 
+        catch (Exception $e) 
+        {
+            print_r(
+                json_encode(
+                    [
+                        "error" => $e->getMessage()
+                    ]
+                )
+            );
+        }
     }
 }
